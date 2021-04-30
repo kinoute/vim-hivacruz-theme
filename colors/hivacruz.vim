@@ -21,7 +21,7 @@ let s:bg="#152638"
 let s:fg="#F8F8F8"
 let s:fg2="#e4e4e4"
 let s:fg3="#d0d0d0"
-let s:fg4="#bcbcbc"
+let s:fg4="#4b6479"
 let s:fg5="#00bfd3"
 let s:bg2="#283748"
 let s:bg3="#3a4958"
@@ -42,6 +42,7 @@ let s:integer="#00ACF6"
 let s:define="#A982FF"
 let s:hexa="#41BC8E"
 let s:red="#FC4349"
+let s:inherited="#AFE61D"
 
 exe 'hi Normal guifg='s:fg' guibg='s:bg
 exe 'hi Cursor guifg='s:bg' guibg='s:fg
@@ -75,7 +76,7 @@ exe 'hi DiffAdd guifg=#fafafa guibg=#123d0f gui=bold cterm=bold'
 exe 'hi DiffDelete guibg='s:bg2
 exe 'hi DiffChange  guibg=#151b3c guifg=#fafafa'
 exe 'hi DiffText guifg=#ffffff guibg=#ff0000 gui=bold cterm=bold'
-exe 'hi ErrorMsg guifg='s:warning2' guibg='s:bg2' gui=bold cterm=bold'
+exe 'hi ErrorMsg guifg='s:fg' guibg='s:warning' gui=bold cterm=bold'
 exe 'hi WarningMsg guifg='s:fg' guibg='s:warning2
 exe 'hi Float guifg='s:integer
 exe 'hi Integer guifg='s:integer
@@ -123,13 +124,6 @@ exe 'hi cType guifg='s:define
 exe 'hi cStructure guifg='s:define
 exe 'hi cParen guifg='s:fg
 exe 'hi cPreCondit guifg='s:fg
-" color ifdef etc
-autocmd BufNewFile,BufRead *.c,*.h syntax match cPreConditions "^\zs#\%(ifdef\|ifndef\|else\|endif\)\ze"
-
-" color define constant name differently
-autocmd BufNewFile,BufRead *.c,*.h syntax match cDefineConstant "^#define\s\+\zs\w\+\ze.*""
-highlight link cPreConditions Keyword
-highlight link cDefineConstant Normal
 
 " Clojure
 " exe 'hi clojureSymbol guifg='s:func
@@ -164,15 +158,22 @@ exe 'hi dartFold guifg='s:func
 exe 'hi dartString guifg='s:str
 
 " Elixir
+exe 'hi elixirAtom guifg='s:method
 
+" Elm
+exe 'hi elmType guifg='s:fg
+exe 'hi elmTopLevelTypedef guifg='s:method
+exe 'hi elmBraces guifg='s:keyword
 
 " Ruby Highlighting
 exe 'hi rubyRainbow_lv0_p1 guifg='s:fg
 exe 'hi rubyRainbow_lv3_p0 guifg='s:fg
 exe 'hi rubySymbol guifg='s:method
+exe 'hi rubySymbolDelimiter guifg='s:fg
 " exe 'hi rubyMethodBlock guifg=#27C3CA'
 " exe 'hi rubyConditionalExpression guifg=#27C3CA'
-exe 'hi rubyConstant guifg='s:type' gui=italic cterm=italic'
+exe 'hi rubyConstant guifg='s:type'  gui=italic cterm=italic'
+exe 'hi rubyPseudoVariable guifg='s:func
 exe 'hi rubyComment guifg='s:comment
 exe 'hi rubyMagicComment guifg='s:comment
 exe 'hi rubyAttribute guifg='s:builtin
@@ -186,9 +187,32 @@ exe 'hi rubyClass guifg='s:keyword' gui=bold cterm=bold'
 exe 'hi rubyNumber guifg='s:integer
 exe 'hi rubyInteger guifg='s:integer
 exe 'hi rubyBoolean guifg='s:func
+exe 'hi rubyClassName guifg='s:type
+exe 'hi rubyModuleName guifg='s:type
+exe 'hi rubyPercentRegexpDelimiter guifg='s:str
+exe 'hi rubyRegexpCharClass guifg='s:method
+exe 'hi rubyRegexpAnchor guifg='s:method
+exe 'hi rubyRegexpQuantifier guifg='s:method
+exe 'hi rubyAccess guifg='s:red
+exe 'hi rubyMultilineComment guifg='s:comment
+
+" Rust
+exe 'hi rustCommentLineDoc guifg='s:comment
+
+" Scala
+exe 'hi scalaInstanceDeclaration guifg='s:type
+exe 'hi scalaSymbol guifg='s:method
+
+" SQL
+exe 'hi sqlKeyword guifg='s:keyword
+exe 'hi sqlHeredoc guifg='s:str
 
 " Disable ALE auto highlights
-let g:ale_set_highlights = 0
+" let g:ale_set_highlights = 0
+exe 'hi ALEErrorSign guibg='s:warning
+exe 'hi ALEWarningSign guibg='s:warning2
+exe 'hi ALEError guifg='s:fg' guibg='s:warning''
+exe 'hi ALEWarning guifg='s:fg' guibg='s:warning2''
 
 " Python Highlighting
 let g:python_highlight_all = 1
@@ -198,6 +222,7 @@ exe 'hi pythonBoolean guifg='s:func
 exe 'hi pythonStrFormatting guifg='s:hexa
 exe 'hi pythonHexNumber guifg='s:hexa
 exe 'hi phpDocTags guifg='s:keyword
+exe 'hi pythonExClass gui=italic cterm=italic guifg='s:type
 
 " Php highlighting
 let g:php_sql_query = 1
@@ -238,6 +263,15 @@ let g:go_highlight_types                  = 1
 let g:go_highlight_variable_assignments   = 1
 let g:go_highlight_variable_declarations  = 1
 
+" Java with plugin uiiaoo/java-syntax.vim
+exe 'hi javaScopeDecl guifg='s:red
+exe 'hi javaAccessKeyword guifg='s:red
+exe 'hi javaClassDecl guifg='s:define
+exe 'hi javaStructure guifg='s:define
+exe 'hi javaBoolean guifg='s:func
+exe 'hi javaConstant guifg='s:method
+exe 'hi javaIdentifier guifg='s:fg
+
 " Javascript Highlighting
 exe 'hi jsBuiltins guifg='s:builtin
 exe 'hi jsFunction guifg='s:define' gui=bold cterm=bold'
@@ -249,7 +283,10 @@ exe 'hi jsFuncArgs guifg='s:keyword' gui=italic cterm=italic'
 exe 'hi jsBooleanFalse guifg='s:func
 exe 'hi jsBooleanTrue guifg='s:func
 exe 'hi jsNull guifg='s:func
-
+exe 'hi jsClassKeyword guifg='s:define
+exe 'hi jsExtendsKeyword guifg='s:red
+exe 'hi jsStorageClass guifg='s:define
+exe 'hi jsClassDefinition guifg='s:inherited' gui=italic cterm=italic'
 
 " Html Highlighting
 exe 'hi htmlLink guifg='s:var' gui=underline cterm=underline'
@@ -262,6 +299,8 @@ exe 'hi htmlEndTag guifg='s:fg
 exe 'hi htmlTag guifg='s:fg
 
 " CSS
+exe 'hi cssIdentifier guifg='s:keyword
+exe 'hi cssClassName guifg='s:keyword
 exe 'hi cssCommonAttr guifg='s:fg
 exe 'hi cssValueNumber guifg='s:integer
 exe 'hi cssTagName guifg='s:integer
@@ -285,6 +324,8 @@ exe 'hi cssBackgroundAttr guifg='s:fg
 exe 'hi scssParameterList guifg='s:keyword
 exe 'hi cssTableAttr guifg='s:fg
 exe 'hi cssCascadeAttr guifg='s:fg
+exe 'hi cssAtRule guifg='s:fg
+exe 'hi scssVariable guifg='s:fg
 
 " Markdown Highlighting
 exe 'hi mkdCode guifg=#8AA1E1'
@@ -323,11 +364,15 @@ exe 'hi shOption guifg='s:keyword' cterm=italic gui=italic'
 exe 'hi shAlias guifg='s:func
 exe 'hi zshVariableDef guifg='s:func
 
-" color some bash stuff
-autocmd BufNewFile,BufRead *.bash,*.sh,*.zsh syntax match shAlias "^\s*\zs\%(complete\|unalias\|alias\)\ze\s.*"
-autocmd BufNewFile,BufRead *.bash,*.sh,*.zsh syntax match shSetVarx "local"
-highlight link shAlias Function
-highlight link shSetVarx WarningMsg
+" Typescript
+exe 'hi typescriptImport guifg='s:keyword
+exe 'hi typescriptDecorator guifg='s:func
+exe 'hi typescriptExport guifg='s:keyword
+exe 'hi typescriptClassKeyword guifg='s:define
+exe 'hi typescriptReadonlyModifier guifg='s:red
+exe 'hi typescriptBoolean guifg='s:func
+exe 'hi typescriptMember guifg='s:fg
+exe 'hi typescriptVariable guifg='s:define
 
 " Nginx
 exe 'hi ngxDirectiveBlock guifg='s:define
@@ -341,7 +386,7 @@ exe 'hi jsonKeyword guifg='s:keyword' gui=italic cterm=italic'
 
 " XML
 exe 'hi xmlTagName guifg='s:integer
-exe 'hi xmlAttrib guifg='s:integer
+exe 'hi xmlAttrib guifg='s:keyword
 
 " Vim
 exe 'hi vimCommand guifg='s:func
@@ -351,6 +396,5 @@ exe 'hi vimVar guifg='s:fg
 exe 'hi NERDTreeDir guifg='s:func
 
 " Indentline
-let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#31364a'
