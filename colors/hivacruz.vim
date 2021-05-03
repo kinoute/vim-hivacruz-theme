@@ -6,246 +6,269 @@
 
 set background=dark
 
-hi clear
+highlight clear
 
 if exists("syntax on")
 syntax reset
 endif
 
+" Please check that Vim/Neovim is able to run this true-color only theme.
+" If running in a terminal make sure termguicolors exists and is set.
+if ($TERM_PROGRAM ==? 'Apple_Terminal')
+  echomsg "Apple Terminal doesn't support 24-bit true colors. The theme will look weird:"
+  echomsg "- We suggest to you use a Terminal that supports 24-bit true colors like iTerm2"
+  echomsg '- Or you can  add "set notermguicolors" on top of your .vimrc to have a somewhat correct theme'
+  finish
+endif
+if has('nvim')
+    if has('nvim-0.4') && nvim_list_uis()[0]['ext_termcolors'] && !&termguicolors
+        " The nvim_list_uis test indicates terminal Neovim vs GUI Neovim.
+        " Note, versions prior to Neovim 0.4 did not set 'ext_termcolors'.
+        echomsg "The theme might not look correct on your computer:"
+        echomsg '- The termguicolors option must be set on top of your .vimrc, like this "set termguicolors"'
+        finish
+    endif
+else " Vim
+    if !has('gui_running') && !exists('&termguicolors')
+        echomsg "The theme might not look correct on your computer:"
+        echomsg '- A modern version of Vim with termguicolors is required'
+        echomsg '- Add "set termguicolors" on top of your .vimrc file and be sure your Terminal support 24-bit true colors'
+        finish
+    elseif !has('gui_running') && !&termguicolors
+        echomsg "The theme might not look correct on your computer:"
+        echomsg '- The termguicolors option must be set on top of your .vimrc, like this "set termguicolors"'
+        echomsg '- Be aware macOS default Vim is broken, use Homebrew Vim instead (if not already)'
+        finish
+    endif
+endif
+
 set t_Co=256
+
+" Fix Syntax highlighting bug
+autocmd BufEnter * :syntax sync fromstart
 
 let g:colors_name = "hivacruz"
 
-" Define reusable colorvariables.
-let s:bg="#152638"
-let s:fg="#F8F8F8"
-let s:fg2="#e4e4e4"
-let s:fg3="#d0d0d0"
-let s:fg4="#4b6479"
-let s:fg5="#00bfd3"
-let s:bg2="#283748"
-let s:bg3="#3a4958"
-let s:bg4="#4d5a68"
-let s:bg5="#212431"
-let s:keyword="#FF8E30"
-let s:builtin="#27C3CA"
-let s:const= "#FD861F"
+" Background and foreground
+let s:background="#152638"
+let s:foreground="#F8F8F8"
+
+" Core colors "
 let s:comment="#B87F62"
-let s:func="#27C3CA"
-let s:str="#FBCE33"
+let s:function="#27C3CA"
+let s:boolean="#27C3CA"
+let s:string="#FBCE33"
 let s:type="#EABF4D"
-let s:var="#F8F8F8"
-let s:warning="#e81050"
-let s:warning2="#e86310"
-let s:method="#2ABD90"
-let s:integer="#00ACF6"
-let s:define="#A982FF"
-let s:hexa="#41BC8E"
+let s:constant="#FBCE33"
+let s:exception="#FF8E30"
+let s:gray="#4b6479"
+let s:darkest_background="#212431"
+let s:lighest_background="#283748"
+let s:variable="#F8F8F8"
+let s:keyword="#FF8E30"
+let s:selection="#355274"
 let s:red="#FC4349"
+let s:warning="#e86310"
+let s:structure="#A982FF"
+let s:light_gray="#4b6479"
+let s:hexa="#41BC8E"
+let s:method="#2ABD90"
+let s:number="#00ACF6"
+let s:define="#A982FF"
 let s:inherited="#AFE61D"
+let s:builtin="#27C3CA"
+let s:const= "#41BC8E"
 
-exe 'hi Normal guifg='s:fg' guibg='s:bg
-exe 'hi Cursor guifg='s:bg' guibg='s:fg
-exe 'hi CursorLine  guibg='s:bg2' cterm=none'
-exe 'hi CursorLineNr guifg='s:fg' guibg='s:bg2' gui=none cterm=none'
-exe 'hi CursorColumn  guibg='s:bg2
-exe 'hi ColorColumn  guibg='s:bg2
-exe 'hi LineNr guifg='s:fg4' guibg='s:bg
-exe 'hi VertSplit guifg='s:fg3' guibg='s:bg3
-exe 'hi MatchParen guifg='s:warning2'  gui=underline cterm=underline'
-exe 'hi StatusLine guifg='s:fg2' guibg='s:bg5' gui=bold cterm=bold'
-exe 'hi Pmenu guifg='s:fg' guibg='s:bg2
-exe 'hi PmenuSel  guibg='s:bg3
-exe 'hi IncSearch guifg='s:bg' guibg='s:keyword
-exe 'hi Search   gui=underline cterm=underline'
-exe 'hi Directory guifg='s:const
-exe 'hi Folded guifg='s:fg4' guibg='s:bg
-exe 'hi WildMenu guifg='s:str' guibg='s:bg
-exe 'hi Visual guifg='s:fg' guibg=#355274'
+" let s:fg2="#e4e4e4"
+" let s:fg3="#d0d0d0"
+" let s:fg4="#4b6479"
+" let s:bg2="#283748"
+" let s:bg3="#3a4958"
+" let s:bg4="#4d5a68"
+" let s:bg5="#212431"
+"let s:warning_back="#e81050"
+" let s:warning2="#e86310"
+"let s:red="#FC4349"
+"let s:inherited="#AFE61D"
 
-exe 'hi Boolean guifg='s:const
-exe 'hi Character guifg='s:const
-exe 'hi Comment guifg='s:comment
-exe 'hi Conditional guifg='s:keyword
-exe 'hi Constant guifg='s:const
-exe 'hi ConstantGreen guifg='s:method
-exe 'hi BigRed guifg='s:red
-exe 'hi Todo guibg='s:bg
-exe 'hi Define guifg='s:keyword
-exe 'hi DiffAdd guifg=#fafafa guibg=#123d0f gui=bold cterm=bold'
-exe 'hi DiffDelete guibg='s:bg2
-exe 'hi DiffChange  guibg=#151b3c guifg=#fafafa'
-exe 'hi DiffText guifg=#ffffff guibg=#ff0000 gui=bold cterm=bold'
-exe 'hi ErrorMsg guifg='s:fg' guibg='s:warning' gui=bold cterm=bold'
-exe 'hi WarningMsg guifg='s:fg' guibg='s:warning2
-exe 'hi Float guifg='s:integer
-exe 'hi Integer guifg='s:integer
-exe 'hi Function guifg='s:func
-exe 'hi Identifier guifg='s:type'  gui=italic cterm=italic'
-exe 'hi Keyword guifg='s:keyword'  gui=bold'
-exe 'hi Label guifg='s:var
-exe 'hi NonText guifg='s:bg4' guibg='s:bg
-exe 'hi Number guifg='s:integer
-exe 'hi Operator guifg='s:keyword
-exe 'hi PreProc guifg='s:keyword
-exe 'hi Special guifg='s:fg
-exe 'hi SpecialKey guifg='s:fg2' guibg='s:bg2
-exe 'hi Statement guifg='s:keyword
-exe 'hi StorageClass guifg='s:type'  gui=italic cterm=italic'
-exe 'hi String guifg='s:str
-exe 'hi Tag guifg='s:keyword
-exe 'hi Title guifg='s:fg'  gui=bold cterm=italic'
-exe 'hi Todo guifg='s:fg2'  gui=inverse,bold cterm=inverse,bold'
-exe 'hi Type guifg='s:type
-exe 'hi Underlined   gui=underline cterm=underline'
+" Specify the colors used by the inbuilt terminal of Neovim and Vim
+if has('nvim')
+  let g:terminal_color_0  = '#202746'
+  let g:terminal_color_1  = '#c94922'
+  let g:terminal_color_2  = '#ac9739'
+  let g:terminal_color_3  = '#c08b30'
+  let g:terminal_color_4  = '#3d8fd1'
+  let g:terminal_color_5  = '#6679cc'
+  let g:terminal_color_6  = '#22a2c9'
+  let g:terminal_color_7  = '#979db4'
+  let g:terminal_color_8  = '#6b7394'
+  let g:terminal_color_9  = '#c76b29'
+  let g:terminal_color_10 = '#73ad43'
+  let g:terminal_color_11 = '#5e6687'
+  let g:terminal_color_12 = '#898ea4'
+  let g:terminal_color_13 = '#dfe2f1'
+  let g:terminal_color_14 = '#9c637a'
+  let g:terminal_color_15 = '#FFFFFF'
+else
+  let g:terminal_ansi_colors = [
+              \ '#202746', '#202746', '#ac9739', '#c08b30',
+              \ '#3d8fd1', '#6679cc', '#22a2c9', '#979db4',
+              \ '#6b7394', '#c76b29', '#73ad43', '#5e6687',
+              \ '#898ea4', '#dfe2f1', '#9c637a', '#FFFFFF'
+              \]
+endif
 
-" Neovim Terminal Mode
-let g:terminal_color_0 = s:bg
-let g:terminal_color_1 = s:warning
-let g:terminal_color_2 = s:keyword
-let g:terminal_color_3 = s:bg4
-let g:terminal_color_4 = s:func
-let g:terminal_color_5 = s:builtin
-let g:terminal_color_6 = s:fg3
-let g:terminal_color_7 = s:str
-let g:terminal_color_8 = s:bg2
-let g:terminal_color_9 = s:warning2
-let g:terminal_color_10 = s:fg2
-let g:terminal_color_11 = s:var
-let g:terminal_color_12 = s:type
-let g:terminal_color_13 = s:const
-let g:terminal_color_14 = s:fg4
-let g:terminal_color_15 = s:comment
+" Background and text
+exec 'highlight Normal guibg=' . s:background . ' guifg=' . s:foreground
+" Color of mode text, -- INSERT --
+exec 'highlight ModeMsg guifg=' . s:foreground . ' gui=none'
+" Comments
+exec 'highlight Comment guifg=' . s:comment
+" Functions
+exec 'highlight Function guifg=' . s:function
+" Strings
+exec 'highlight String guifg=' . s:string
+" Booleans
+exec 'highlight Boolean guifg=' . s:boolean
+" Identifiers
+exec 'highlight Identifier guifg=' . s:foreground
+" Color of titles
+exec 'highlight Title guifg=' . s:foreground . ' gui=none'
+" const, static
+exec 'highlight StorageClass guifg=' . s:type
+" void, intptr_t
+exec 'highlight Type guifg=' . s:type . ' gui=none'
+" Numbers
+exec 'highlight Constant guifg=' . s:const
+" Character constants
+exec 'highlight Character guifg=' . s:string
+" Exceptions
+exec 'highlight Exception guifg=' . s:exception
+" ifdef/endif
+exec 'highlight PreProc guifg=' . s:keyword
+exec 'highlight Keyword guifg='s:keyword'  gui=bold'
 
-" C
-exe 'hi cNumber guifg='s:integer
-exe 'hi cStorageClass guifg='s:red
-exe 'hi cType guifg='s:define
-exe 'hi cStructure guifg='s:define
-exe 'hi cParen guifg='s:fg
-exe 'hi cPreCondit guifg='s:fg
 
-" Clojure
-" exe 'hi clojureSymbol guifg='s:func
-exe 'hi clojureKeyword guifg='s:method
+" Status, split and tab lines
+exec 'highlight StatusLine cterm=none guibg=' . s:lighest_background . ' guifg=' . s:foreground . ' gui=none'
+exec 'highlight StatusLineNC cterm=none guibg=' . s:background . ' guifg=' . s:foreground . ' gui=none'
+exec 'highlight VertSplit cterm=none guibg=' . s:lighest_background . ' guifg=' . s:gray . ' gui=none'
+exec 'highlight Tabline cterm=none guibg=' . s:lighest_background . ' guifg=' . s:foreground . ' gui=none'
+exec 'highlight TablineSel cterm=none guibg=' . s:background . ' guifg=' . s:foreground . ' gui=none'
+exec 'highlight TablineFill cterm=none guibg=' . s:foreground . ' guifg=' . s:background . ' gui=none'
+exec 'highlight StatusLineTerm cterm=none guibg=' . s:background . ' guifg=' . s:foreground . ' gui=none'
+exec 'highlight StatusLineTermNC cterm=none guibg=' . s:background . ' guifg=' . s:foreground . ' gui=none'
 
-" Coffee
-exe 'hi coffeeBoolean guifg='s:func
-exe 'hi coffeeObjAssign guifg='s:func
-exe 'hi coffeeParens guifg='s:type' cterm=italic gui=italic'
+" case in switch statement
+exec 'highlight Label guifg=' . s:variable
+" end-of-line '$', end-of-file '~'
+exec 'highlight NonText guifg=' . s:background . ' gui=none'
+" sizeof
+exec 'highlight Operator guifg=' . s:keyword
+" for, while
+exec 'highlight Repeat guifg=' . s:keyword
+" Search
+exec 'highlight Search guibg=' . s:selection . ' guifg=' . s:foreground
+exec 'highlight IncSearch guibg=' . s:selection . ' guifg=' . s:foreground
 
-" cpp
-exe 'hi cppStructure guifg='s:define
-exe 'hi cppAccess guifg='s:red
-exe 'hi cppModifier guifg='s:red
-exe 'hi cCharacter guifg='s:str
+" '\n' sequences
+exec 'highlight Special guifg=' . s:foreground
 
-" Crystal
-exe 'hi crystalClassName guifg='s:fg
+" if, else
+exec 'highlight Statement guifg=' . s:keyword . ' gui=none'
 
-" Csharp
-exe 'hi csModifier guifg='s:red
-exe 'hi csType guifg='s:define
-exe 'hi csClass guifg='s:define
-exe 'hi csRegion guifg='s:func
-exe 'hi csXmlTag guifg='s:integer
+" Visual selection
+exec 'highlight Visual guibg=' . s:selection . ' guifg=' . s:foreground
+exec 'highlight VisualNOS guibg=' . s:selection . ' guifg=fg gui=none'
+exec 'highlight VisualInDiff guibg=' . s:selection . ' guifg=' . s:foreground
 
-" Dart
-exe 'hi dartCoreType guifg='s:define
-exe 'hi dartStorageClass guifg='s:red
-exe 'hi dartSdkClass guifg='s:define
-exe 'hi dartFold guifg='s:func
-exe 'hi dartString guifg='s:str
+" Errors, warnings and whitespace-eol
+exec 'highlight Error guifg=' . s:foreground . ' gui=reverse guibg=' . s:red
+exec 'highlight ErrorMsg guibg=bg guifg=' . s:red
+exec 'highlight WarningMsg guibg=bg guifg=' . s:warning
 
-" Elixir
-exe 'hi elixirAtom guifg='s:method
+" struct, union, enum, typedef
+exec 'highlight Structure guifg=' . s:structure
 
-" Elm
-exe 'hi elmType guifg='s:fg
-exe 'hi elmTopLevelTypedef guifg='s:method
-exe 'hi elmBraces guifg='s:keyword
+" Auto-text-completion menu
+exec 'highlight Pmenu guibg=' . s:lighest_background . ' guifg=fg'
+exec 'highlight PmenuSel guibg=' . s:darkest_background . ' guifg=fg'
+exec 'highlight PmenuSbar guibg=' . s:darkest_background
+exec 'highlight PmenuThumb guibg=' . s:darkest_background
+exec 'highlight WildMenu guibg=' . s:selection . ' cterm=none guifg=' . s:foreground
 
-" Ruby Highlighting
-exe 'hi rubyRainbow_lv0_p1 guifg='s:fg
-exe 'hi rubyRainbow_lv3_p0 guifg='s:fg
-exe 'hi rubySymbol guifg='s:method
-exe 'hi rubySymbolDelimiter guifg='s:fg
-" exe 'hi rubyMethodBlock guifg=#27C3CA'
-" exe 'hi rubyConditionalExpression guifg=#27C3CA'
-exe 'hi rubyConstant guifg='s:type'  gui=italic cterm=italic'
-exe 'hi rubyPseudoVariable guifg='s:func
-exe 'hi rubyComment guifg='s:comment
-exe 'hi rubyMagicComment guifg='s:comment
-exe 'hi rubyAttribute guifg='s:builtin
-exe 'hi rubyLocalVariableOrMethod guifg='s:var
-exe 'hi rubyGlobalVariable guifg='s:var' gui=italic cterm=italic'
-exe 'hi rubyInstanceVariable guifg='s:var
-exe 'hi rubyKeyword guifg='s:keyword
-exe 'hi rubyKeywordAsMethod guifg='s:keyword' gui=bold cterm=bold'
-exe 'hi rubyClassDeclaration guifg='s:keyword' gui=bold cterm=bold'
-exe 'hi rubyClass guifg='s:keyword' gui=bold cterm=bold'
-exe 'hi rubyNumber guifg='s:integer
-exe 'hi rubyInteger guifg='s:integer
-exe 'hi rubyBoolean guifg='s:func
-exe 'hi rubyClassName guifg='s:type
-exe 'hi rubyModuleName guifg='s:type
-exe 'hi rubyPercentRegexpDelimiter guifg='s:str
-exe 'hi rubyRegexpCharClass guifg='s:method
-exe 'hi rubyRegexpAnchor guifg='s:method
-exe 'hi rubyRegexpQuantifier guifg='s:method
-exe 'hi rubyAccess guifg='s:red
-exe 'hi rubyMultilineComment guifg='s:comment
+" Spelling errors
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
+exec 'highlight clear SpellBad'
+exec 'highlight clear SpellCap'
+exec 'highlight clear SpellRare'
+exec 'highlight clear SpellLocal'
+exec 'highlight! SpellBad gui=undercurl guisp=' . s:red . ' term=undercurl cterm=undercurl'
+exec 'highlight! SpellCap gui=undercurl guisp=' . s:red . ' term=undercurl cterm=undercurl'
+exec 'highlight! SpellRare gui=undercurl guisp=' . s:red . ' term=undercurl cterm=undercurl'
+exec 'highlight! SpellLocal gui=undercurl guisp=' . s:red . ' term=undercurl cterm=undercurl'
 
-" Rust
-exe 'hi rustCommentLineDoc guifg='s:comment
+" Misc
+exec 'highlight Question guifg=' . s:function . ' gui=none'
+exec 'highlight MoreMsg guifg=' . s:function . ' gui=none'
+exec 'highlight LineNr guibg=bg guifg=' . s:light_gray
 
-" Scala
-exe 'hi scalaInstanceDeclaration guifg='s:type
-exe 'hi scalaSymbol guifg='s:method
+" cursors
+exec 'highlight Cursor guifg=bg guibg=fg'
+exec 'highlight lCursor guifg=bg guibg=fg'
+exec 'highlight CursorLineNr cterm=none guibg=' . s:lighest_background . ' guifg=' . s:foreground . ' gui=none'
+exec 'highlight CursorColumn guibg=' . s:darkest_background
+exec 'highlight ColorColumn guibg=' . s:darkest_background
+exec 'highlight CursorLine cterm=none guibg=' . s:lighest_background
 
-" SQL
-exe 'hi sqlKeyword guifg='s:keyword
-exe 'hi sqlHeredoc guifg='s:str
+" folding
+exec 'highlight Folded guibg=' . s:lighest_background . ' guifg='. s:foreground
+exec 'highlight FoldColumn guibg=' . s:lighest_background . ' guifg=' . s:foreground
 
-" Disable ALE auto highlights
-" let g:ale_set_highlights = 0
-exe 'hi ALEErrorSign guibg='s:warning
-exe 'hi ALEWarningSign guibg='s:warning2
-exe 'hi ALEError guifg='s:fg' guibg='s:warning''
-exe 'hi ALEWarning guifg='s:fg' guibg='s:warning2''
+exec 'highlight SignColumn guibg=bg guifg=' . s:foreground
+exec 'highlight Todo guibg=' . s:string . ' guifg=' . s:background
+exec 'highlight SpecialKey guibg=bg guifg=' . s:foreground
+exec 'highlight MatchParen guibg=' . s:lighest_background . ' cterm=underline gui=underline'
+exec 'highlight Ignore guifg=' . s:function
+exec 'highlight Underlined gui=underline cterm=underline'
+exec 'highlight QuickFixLine guibg=' . s:lighest_background
+exec 'highlight Delimiter guifg=' . s:foreground
 
-" Python Highlighting
-let g:python_highlight_all = 1
-exe 'hi pythonBuiltinFunc guifg='s:builtin
-exe 'hi pythonNumber guifg='s:integer
-exe 'hi pythonBoolean guifg='s:func
-exe 'hi pythonStrFormatting guifg='s:hexa
-exe 'hi pythonHexNumber guifg='s:hexa
-exe 'hi phpDocTags guifg='s:keyword
-exe 'hi pythonExClass gui=italic cterm=italic guifg='s:type
+exec 'highlight Directory guifg=' . s:function
 
-" Php highlighting
-let g:php_sql_query = 1
-let g:php_html_in_string = 1
-let g:php_var_selector_is_identifier = 1
-exe 'hi phpStorageClass guifg=#FC4349'
-exe 'hi phpIdentifier guifg='s:fg
-exe 'hi phpNumber guifg='s:integer
-exe 'hi phpDefine guifg='s:define
-exe 'hi phpRegion guifg='s:func
-exe 'hi phpType guifg=#FC4349'
-exe 'hi phpBoolean guifg='s:func
-exe 'hi phpMethodsVar guifg='s:func
-exe 'hi phpClass guifg='s:str
-exe 'hi phpClassExtends guifg='s:str' gui=italic cterm=italic'
-exe 'hi phpNullValue guifg='s:func
-exe 'hi phpMethod guifg='s:func
+exec 'highlight Conditional guifg='s:keyword
+exec 'highlight ConstantGreen guifg='s:const
+exec 'highlight BigRed guifg='s:red
 
-" Treat smarty tpl files as html"
-autocmd BufNewFile,BufRead *.tpl set syntax=html
+exec 'highlight Define guifg='s:keyword
 
-" Go Highlighting
-exe 'hi goBuiltins guifg='s:builtin
+" diff
+exec 'highlight DiffAdd guifg=' . s:method . ' guibg=' . s:background . ' gui=bold cterm=bold'
+exec 'highlight DiffAdded guifg=' . s:background . ' guibg=' . s:method . ' gui=bold cterm=bold'
+exec 'highlight DiffDelete guibg='s:red
+exec 'highlight DiffRemoved guibg='s:red
+exec 'highlight DiffChange  guibg=' . s:darkest_background . ' guifg='s:foreground
+exec 'highlight DiffText guifg=' . s:foreground . ' guibg=' . s:red . ' gui=bold cterm=bold'
+
+" numbers
+exec 'highlight Float guifg='s:number
+exec 'highlight Integer guifg='s:number
+exec 'highlight Number guifg='s:number
+
+exec 'highlight Tag guifg='s:keyword
+
+" custom
+exec 'highlight TypeOfElem guifg='s:define
+exec 'highlight KeywordItalic guifg='s:keyword' cterm=italic gui=italic'
+exec 'highlight TypeItalic guifg='s:type' cterm=italic gui=italic'
+exec 'highlight Hexadecimal guifg='s:hexa
+exec 'highlight MethodGreen guifg='s:method
+exec 'highlight Builtins guifg='s:builtin
+exec 'highlight Links guifg='s:foreground' gui=underline cterm=underline'
+exec 'highlight InheritedClass guifg='s:inherited' gui=italic cterm=italic'
+
+" Go plugin
 let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_build_constraints      = 1
 let g:go_highlight_chan_whitespace_error  = 1
@@ -263,138 +286,3 @@ let g:go_highlight_types                  = 1
 let g:go_highlight_variable_assignments   = 1
 let g:go_highlight_variable_declarations  = 1
 
-" Java with plugin uiiaoo/java-syntax.vim
-exe 'hi javaScopeDecl guifg='s:red
-exe 'hi javaAccessKeyword guifg='s:red
-exe 'hi javaClassDecl guifg='s:define
-exe 'hi javaStructure guifg='s:define
-exe 'hi javaBoolean guifg='s:func
-exe 'hi javaConstant guifg='s:method
-exe 'hi javaIdentifier guifg='s:fg
-
-" Javascript Highlighting
-exe 'hi jsBuiltins guifg='s:builtin
-exe 'hi jsFunction guifg='s:define' gui=bold cterm=bold'
-exe 'hi jsGlobalObjects guifg='s:type' gui=italic cterm=italic'
-exe 'hi jsAssignmentExps guifg='s:var
-exe 'hi jsUndefined guifg='s:func
-exe 'hi jsNumber guifg='s:integer
-exe 'hi jsFuncArgs guifg='s:keyword' gui=italic cterm=italic'
-exe 'hi jsBooleanFalse guifg='s:func
-exe 'hi jsBooleanTrue guifg='s:func
-exe 'hi jsNull guifg='s:func
-exe 'hi jsClassKeyword guifg='s:define
-exe 'hi jsExtendsKeyword guifg='s:red
-exe 'hi jsStorageClass guifg='s:define
-exe 'hi jsClassDefinition guifg='s:inherited' gui=italic cterm=italic'
-
-" Html Highlighting
-exe 'hi htmlLink guifg='s:var' gui=underline cterm=underline'
-exe 'hi htmlStatement guifg='s:keyword
-exe 'hi htmlSpecialTagName guifg='s:keyword
-exe 'hi htmlTagName guifg='s:integer
-exe 'hi htmlArg guifg='s:keyword
-exe 'hi htmlSpecialChar guifg='s:method
-exe 'hi htmlEndTag guifg='s:fg
-exe 'hi htmlTag guifg='s:fg
-
-" CSS
-exe 'hi cssIdentifier guifg='s:keyword
-exe 'hi cssClassName guifg='s:keyword
-exe 'hi cssCommonAttr guifg='s:fg
-exe 'hi cssValueNumber guifg='s:integer
-exe 'hi cssTagName guifg='s:integer
-exe 'hi cssTextAttr guifg='s:fg
-exe 'hi cssPositioningAttr guifg='s:fg
-exe 'hi cssColor guifg='s:hexa
-exe 'hi scssSelectorName guifg='s:keyword
-exe 'hi scssSelectorChar guifg='s:keyword
-exe 'hi cssUnitDecorators guifg='s:hexa
-exe 'hi cssValueLength guifg='s:integer
-exe 'hi cssValueTime guifg='s:integer
-exe 'hi cssFontAttr guifg='s:fg
-exe 'hi scssAttribute guifg='s:keyword
-exe 'hi cssBoxAttr guifg='s:fg
-exe 'hi cssUIAttr guifg='s:fg
-exe 'hi cssFlexibleBoxAttr guifg='s:fg
-exe 'hi cssBorderAttr guifg='s:fg
-exe 'hi cssPseudoClassId guifg='s:fg
-exe 'hi cssVendor guifg='s:fg
-exe 'hi cssBackgroundAttr guifg='s:fg
-exe 'hi scssParameterList guifg='s:keyword
-exe 'hi cssTableAttr guifg='s:fg
-exe 'hi cssCascadeAttr guifg='s:fg
-exe 'hi cssAtRule guifg='s:fg
-exe 'hi scssVariable guifg='s:fg
-
-" Markdown Highlighting
-exe 'hi mkdCode guifg=#8AA1E1'
-exe 'hi mkdHeading ctermfg=LightYellow guifg=LightYellow'
-exe 'hi mkdLink guifg=#27c3ca'
-exe 'hi mkdURL guifg=#F0B752'
-exe 'hi mkdCodeStart guifg=#8AA1E1'
-exe 'hi mkdCodeEnd guifg=#8AA1E1'
-autocmd FileType markdown highlight htmlH1 ctermfg=LightYellow
-
-" Yaml
-exe 'hi yamlBlockMappingKey guifg='s:integer
-exe 'hi yamlPlainScalar guifg='s:str
-exe 'hi yamlBool guifg='s:func
-
-" Docker-compose
-exe 'hi dockercomposeKeywords guifg='s:integer
-
-" Sh/env/dos
-exe 'hi shNumber guifg='s:integer
-exe 'hi dosiniNumber guifg='s:integer
-exe 'hi dosiniHeader guifg='s:func
-exe 'hi dosiniValue guifg='s:fg
-exe 'hi shStatement guifg='s:func
-exe 'hi shVariable guifg='s:fg
-exe 'hi shSetOption guifg='s:keyword
-exe 'hi shLoop guifg='s:keyword
-exe 'hi shShebang guifg='s:comment
-exe 'hi shSet guifg='s:red
-exe 'hi shFor guifg='s:fg
-exe 'hi shSetList guifg='s:fg
-exe 'hi shDerefSimple guifg='s:fg
-exe 'hi shDerefVar guifg='s:fg
-exe 'hi shParen guifg='s:keyword' cterm=italic gui=italic'
-exe 'hi shOption guifg='s:keyword' cterm=italic gui=italic'
-exe 'hi shAlias guifg='s:func
-exe 'hi zshVariableDef guifg='s:func
-
-" Typescript
-exe 'hi typescriptImport guifg='s:keyword
-exe 'hi typescriptDecorator guifg='s:func
-exe 'hi typescriptExport guifg='s:keyword
-exe 'hi typescriptClassKeyword guifg='s:define
-exe 'hi typescriptReadonlyModifier guifg='s:red
-exe 'hi typescriptBoolean guifg='s:func
-exe 'hi typescriptMember guifg='s:fg
-exe 'hi typescriptVariable guifg='s:define
-
-" Nginx
-exe 'hi ngxDirectiveBlock guifg='s:define
-exe 'hi ngxDirective guifg='s:keyword
-exe 'hi ngxDirectiveImportant guifg='s:keyword
-exe 'hi ngxInteger guifg='s:integer
-exe 'hi ngxBoolean guifg='s:func
-
-" Json
-exe 'hi jsonKeyword guifg='s:keyword' gui=italic cterm=italic'
-
-" XML
-exe 'hi xmlTagName guifg='s:integer
-exe 'hi xmlAttrib guifg='s:keyword
-
-" Vim
-exe 'hi vimCommand guifg='s:func
-exe 'hi vimNumber guifg='s:integer
-exe 'hi vimNotation guifg='s:keyword' cterm=italic gui=italic'
-exe 'hi vimVar guifg='s:fg
-exe 'hi NERDTreeDir guifg='s:func
-
-" Indentline
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#31364a'
