@@ -78,6 +78,7 @@ let s:define="#A982FF"
 let s:inherited="#AFE61D"
 let s:builtin="#27C3CA"
 let s:const= "#41BC8E"
+let s:link="#8AA1E1"
 
 " let s:fg2="#e4e4e4"
 " let s:fg3="#d0d0d0"
@@ -195,7 +196,7 @@ exec 'highlight Pmenu guibg=' . s:lighest_background . ' guifg=fg'
 exec 'highlight PmenuSel guibg=' . s:darkest_background . ' guifg=fg'
 exec 'highlight PmenuSbar guibg=' . s:darkest_background
 exec 'highlight PmenuThumb guibg=' . s:darkest_background
-exec 'highlight WildMenu guibg=' . s:selection . ' cterm=none guifg=' . s:foreground
+exec 'highlight WildMenu guibg=' . s:foreground . ' cterm=none guifg=' . s:background
 
 " Spelling errors
 let &t_Cs = "\e[4:3m"
@@ -267,6 +268,7 @@ exec 'highlight MethodGreen guifg='s:method
 exec 'highlight Builtins guifg='s:builtin
 exec 'highlight Links guifg='s:foreground' gui=underline cterm=underline'
 exec 'highlight InheritedClass guifg='s:inherited' gui=italic cterm=italic'
+exec 'highlight MdLink guifg='s:type
 
 " Go plugin
 let g:go_highlight_array_whitespace_error = 1
@@ -286,3 +288,28 @@ let g:go_highlight_types                  = 1
 let g:go_highlight_variable_assignments   = 1
 let g:go_highlight_variable_declarations  = 1
 
+" markdown
+let g:vim_markdown_conceal = 0
+
+" Php highlighting
+let g:php_sql_query = 1
+let g:php_html_in_string = 1
+let g:php_var_selector_is_identifier = 1
+
+" Python Highlighting
+let g:python_highlight_all = 1
+
+"Ruby
+let g:ruby_operators = 1
+let g:ruby_pseudo_operators = 1
+
+" Disable ALE auto highlights
+" let g:ale_set_highlights = 0
+exe 'hi ALEErrorSign guibg='s:red
+exe 'hi ALEWarningSign guibg='s:warning
+exe 'hi ALEError guifg='s:foreground' guibg='s:red
+exe 'hi ALEWarning guifg='s:foreground' guibg='s:warning
+
+" Indentline
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#31364a'

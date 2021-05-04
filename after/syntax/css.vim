@@ -38,6 +38,7 @@ highlight! link cssBorderProp TypeItalic
 highlight! link cssBackgroundProp TypeItalic
 highlight! link cssTransformProp TypeItalic
 highlight! link cssTransitionProp TypeItalic
+highlight! link cssTransitionAttr Normal
 
 " SCSS
 highlight! link scssSelectorName Keyword
