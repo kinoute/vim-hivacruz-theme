@@ -73,7 +73,7 @@ let g:lightline = {'colorscheme' : 'hivacruz'}
 Or to enable airline support:
 
 ```viml
-let g:airline_theme='hivacruz'
+let g:airline_theme = 'hivacruz'
 let g:airline_powerline_fonts = 1
 ```
 
