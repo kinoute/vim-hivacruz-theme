@@ -155,7 +155,7 @@ The font used is [Roboto Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts
 
 ## Same theme in other apps
 
-I made similar themes with the same colours for different applications. Here there are:
+I made similar themes with the same colors for different applications. Here there are:
 
 - Sublime Text theme: https://github.com/kinoute/hivacruz-sublime-theme
 - VSCode Theme: https://github.com/kinoute/vscode-hivacruz-theme
