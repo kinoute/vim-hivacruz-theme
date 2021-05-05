@@ -85,6 +85,7 @@ As today,  the following plugins have been styled (more to come):
 
 - [airline](https://github.com/vim-airline/vim-airline)
 - [ALE](https://github.com/w0rp/ale)
+- [fzf.vim](https://github.com/junegunn/fzf.vim)
 - [GitGutter](https://github.com/airblade/vim-gitgutter)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [lightline](https://github.com/itchyny/lightline.vim)

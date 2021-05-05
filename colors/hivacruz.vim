@@ -79,6 +79,8 @@ let s:inherited="#AFE61D"
 let s:builtin="#27C3CA"
 let s:const= "#41BC8E"
 let s:link="#8AA1E1"
+let s:light_green="#14383E"
+let s:light_red="#6D2D3D"
 
 " let s:fg2="#e4e4e4"
 " let s:fg3="#d0d0d0"
@@ -317,3 +319,35 @@ let g:indentLine_color_gui = '#31364a'
 " NerdTree
 exec 'highlight NERDTreeOpenable guifg='s:keyword
 exec 'highlight NERDTreeClosable guifg='s:keyword
+
+" Gitgutter
+exec 'highlight! link GitGutterAdd ConstantGreen'
+exec 'highlight! link GitGutterChange Normal'
+exec 'highlight! link GitGutterDelete BigRed'
+exec 'highlight GitGutterAddLine guibg='s:light_green
+exec 'highlight GitGutterChangeLine guibg='s:darkest_background
+exec 'highlight GitGutterDeleteLine guibg='s:light_red
+
+" FZF plugin
+exec 'highlight fzf1 guifg=' . s:red . ' guibg=' . s:background
+exec 'highlight fzf2 guifg=' . s:variable . ' guibg=' . s:background
+exec 'highlight fzf3 guifg=' . s:function . ' guibg=' . s:background
+exec 'highlight fzfNormal guifg=' . s:foreground
+exec 'highlight fzfFgPlus guifg=' . s:foreground
+exec 'highlight fzfBorder guifg=' . s:background
+let g:fzf_colors = {
+  \  'fg':      ['fg', 'fzfNormal'],
+  \  'bg':      ['bg', 'Normal'],
+  \  'hl':      ['fg', 'Number'],
+  \  'fg+':     ['fg', 'fzfFgPlus'],
+  \  'bg+':     ['bg', 'Pmenu'],
+  \  'hl+':     ['fg', 'Number'],
+  \  'info':    ['fg', 'String'],
+  \  'border':  ['fg', 'fzfBorder'],
+  \  'prompt':  ['fg', 'fzf2'],
+  \  'pointer': ['fg', 'Exception'],
+  \  'marker':  ['fg', 'StorageClass'],
+  \  'spinner': ['fg', 'Type'],
+  \  'header':  ['fg', 'CursorLineNr']
+  \}
+
