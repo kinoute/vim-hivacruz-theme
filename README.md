@@ -165,5 +165,5 @@ I made similar themes with the same colours for different applications. Here the
 
 - Created by [Yann Defretin](https://github.com/kinoute).
 - Colors inspired by Coda 2.5's Panic Palette by Cabel Sasser.
-- The README was written by using the [vim-nightfly-guicolors](https://github.com/bluz71/vim-nightfly-guicolors) README as a start.
+- The README was written by using the [vim-nightfly-guicolors](https://github.com/bluz71/vim-nightfly-guicolors) README as a template.
 
