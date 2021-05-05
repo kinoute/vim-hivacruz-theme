@@ -305,11 +305,15 @@ let g:ruby_pseudo_operators = 1
 
 " Disable ALE auto highlights
 " let g:ale_set_highlights = 0
-exe 'hi ALEErrorSign guibg='s:red
-exe 'hi ALEWarningSign guibg='s:warning
-exe 'hi ALEError guifg='s:foreground' guibg='s:red
-exe 'hi ALEWarning guifg='s:foreground' guibg='s:warning
+exec 'highlight ALEErrorSign guibg='s:red
+exec 'highlight ALEWarningSign guibg='s:warning
+exec 'highlight ALEError guifg='s:foreground' guibg='s:red
+exec 'highlight ALEWarning guifg='s:foreground' guibg='s:warning
 
 " Indentline
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#31364a'
+
+" NerdTree
+exec 'highlight NERDTreeOpenable guifg='s:keyword
+exec 'highlight NERDTreeClosable guifg='s:keyword
