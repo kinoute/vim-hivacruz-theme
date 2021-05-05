@@ -123,8 +123,8 @@ Since it is a work in progress, if you find something buggy or you simply want t
 
 ## Screenshots
 
-Some examples of syntax highlighting:
-
+Some [examples](misc/screenshots) of syntax highlighting:
+	
 ### Ruby
 
 ![](misc/screenshots/ruby.png)
