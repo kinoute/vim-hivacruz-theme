@@ -41,7 +41,7 @@ This theme follows the standard runtime path structure, and as such it can be in
 
 Then:
 
-1. Run `:PlugInstall` on vim after you added the correct line related to your Plugin Manager in `.vimrc` ;
+1. Run `:PluginInstall` on vim after you added the correct line related to your Plugin Manager in `.vimrc` ;
 2. Verify that you have enabled the syntax highlighting with `syntax enable` or `syntax on` ;
 3. Add/change your `colorscheme` to `colorscheme hivacruz` in your `.vimrc`. Make sure this line appears **after** your Plugin Manager lists the plugins installed ;
 4. Add `set termguicolors` on top of your `.vimrc`, otherwise the theme might not work correctly.
