@@ -58,6 +58,8 @@ Install it with your Plugin manager like this (example here with Vundle):
 Plugin 'sheerun/vim-polyglot'
 ```
 
+You can see the list of languages where additionnal syntax highlighting was applied [here](after/syntax).
+
 ## Lightline & Airline
 
 This theme also has support for [lightline](https://github.com/itchyny/lightline.vim) as well as [airline](https://github.com/vim-airline/vim-airline).
