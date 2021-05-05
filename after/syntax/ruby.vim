@@ -3,7 +3,10 @@ syn include @SQL syntax/sql.vim
 syn region sqlHeredoc start=/\v\<\<[-~]SQL/ end=/\vSQL/ keepend contains=@SQL
 let b:current_syntax = "ruby"
 
+syntax match rubyCmds "\s*\zs\%(puts\|system\)\ze\s.*$" containedin=rubyDoBlock
+
 " Ruby Highlighting
+highlight! link rubyCmds Function
 highlight! link rubySymbol MethodGreen
 highlight! link rubySymbolDelimiter Normal
 " highlight! link rubyMethodBlock guifg=#27C3CA'
@@ -37,3 +40,4 @@ highlight! link rubyRegexpQuantifier MethodGreen
 highlight! link rubyAccess BigRed
 highlight! link rubyMultilineComment Comment
 highlight! link rubyRoute Function
+" highlight! link rubyBlockParameterList KeywordItalic
