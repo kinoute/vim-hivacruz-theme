@@ -20,7 +20,7 @@ _hivacruz_ explicitly does **not** support the 256 color `cterm` version of Vim 
 
 If you want to know if your Terminal supports 24-bit color, run the following snippet in your shell:
 
-```
+```sh
 printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
 ```
 
@@ -54,7 +54,7 @@ To have a better syntax highlighting experience, I **highly recommend** to insta
 
 Install it with your Plugin manager like this (example here with Vundle):
 
-```vim
+```viml
 Plugin 'sheerun/vim-polyglot'
 ```
 
@@ -66,13 +66,13 @@ This theme also has support for [lightline](https://github.com/itchyny/lightline
 
 To enable lightline support:
 
-```vim
+```viml
 let g:lightline = {'colorscheme' : 'hivacruz'}
 ```
 
 Or to enable airline support:
 
-```vim
+```viml
 let g:airline_theme='hivacruz'
 let g:airline_powerline_fonts = 1
 ```
@@ -109,7 +109,7 @@ On terminals that support true colors, and when `termguicolors` is set, the _hiv
 
 For the _hivacruz_ color scheme to display correctly inside _tmux_ the following setting will usually be required in `~/.tmux.conf`:
 
-```
+```viml
 set -ga terminal-overrides ',xterm-256color:Tc'
 ```
 
