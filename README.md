@@ -4,12 +4,11 @@ _hivacruz_ is a work in progress dark blue GUI color scheme for Vim and Neovim.
 
 ![screenshot](misc/screenshots/main.png)
 
-> The font used in the screenshot is [Roboto Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf), Medium, 12px on iTerm2 Terminal.
+> The font used in the screenshot is [Roboto Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf), Medium, 12px, on iTerm2 Terminal.
 
 ## Color Palette
 
 ![palette](misc/hivacruz-palette.png)
-
 
 ## Prerequisites
 
@@ -17,13 +16,7 @@ _hivacruz_ is a **GUI-only** Vim color scheme, for now.
 
 A GUI client, such as gvim, or a modern terminal version of Vim/Neovim with `termguicolors` enabled in a true-color terminal, will be required. Details about true-color terminals are listed below.
 
-_hivacruz_ explicitly does **not** support the 256 color `cterm` version of Vim due to the number of custom colors required. 
-
-I encourage terminal users to use a true-color terminal, such as:
-
-* [iTerm2](https://iterm2.com) (macOS) ;
-* [GNOME Terminal](https://wiki.gnome.org/Apps/Terminal) ;
-* [Alacritty](https://github.com/alacritty/alacritty).
+_hivacruz_ explicitly does **not** support the 256 color `cterm` version of Vim due to the number of custom colors required. It might in the future.
 
 If you want to know if your Terminal supports 24-bit color, run the following snippet in your shell:
 
@@ -50,12 +43,12 @@ Then:
 
 1. Run `:PlugInstall` on vim after you added the correct line related to your Plugin Manager in `.vimrc` ;
 2. Verify that you have enabled the syntax highlighting with `syntax enable` or `syntax on` ;
-3. Add/change your `colorscheme ` to `colorscheme hivacruz` in your `.vimrc`. Make sure this line appears **after** your Plugin Manager lists the plugins installed.
+3. Add/change your `colorscheme` to `colorscheme hivacruz` in your `.vimrc`. Make sure this line appears **after** your Plugin Manager lists the plugins installed ;
 4. Add `set termguicolors` on top of your `.vimrc`, otherwise the theme might not work correctly.
 
 ## Languages supported
 
-Most of the (Neo)vim languages will have syntax lightighting working out of the box. 
+Most of the (Neo)vim languages will have syntax highlighting working out of the box. 
 
 To have a better syntax highlighting experience, I **highly recommend** to install the [vim-polyglot](https://github.com/sheerun/vim-polyglot) plugin. This plugin adds a lot of syntax highlighting for hundreds of languages and this theme depends on it to provide a better set of colors.
 
@@ -75,43 +68,33 @@ To enable lightline support:
 let g:lightline = {'colorscheme' : 'hivacruz'}
 ```
 
-To enable airline support:
+Or to enable airline support:
 
 ```vim
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='hivacruz'
 let g:airline_powerline_fonts = 1
 ```
 
 The lightline and airline styles will both follow the chosen colors cheme style.
 
-Plugins explicity styled
-------------------------
+## Plugins explicity styled
 
+As today,  the following plugins have been styled (more to come):
+
+- [airline](https://github.com/vim-airline/vim-airline)
 - [ALE](https://github.com/w0rp/ale)
-- [barbar.nvim](https://github.com/romgrk/barbar.nvim)
-- [BufExplorer](https://github.com/jlanzarotta/bufexplorer)
-- [clever-f](https://github.com/rhysd/clever-f.vim)
-- [CtrlP](https://github.com/ctrlpvim/ctrlp.vim)
-- [fern.vim](https://github.com/lambdalisue/fern.vim)
-- [fzf.vim](https://github.com/junegunn/fzf.vim)
 - [GitGutter](https://github.com/airblade/vim-gitgutter)
-- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
-- [Neomake](https://github.com/neomake/neomake)
+- [lightline](https://github.com/itchyny/lightline.vim)
 - [NERDTree](https://github.com/scrooloose/nerdtree)
-- [Signify](https://github.com/mhinz/vim-signify)
-- [Tagbar](https://github.com/majutsushi/tagbar)
-- [vimfiler](https://github.com/Shougo/vimfiler.vim)
 
-True Color Terminals
---------------------
+## True Color Terminals
 
 Many modern terminals support [24-bit true colors](https://gist.github.com/XVilka/8346728). Current versions of Vim and Neovim on such terminals support true colors when `set termguicolors` is enabled.
 
 A list of popular terminals that support true colors:
 
-- [iTerm2](http://www.iterm2.com)
+- [iTerm2](http://www.iterm2.com) (see my personal theme below)
 - [GNOME Terminal](https://wiki.gnome.org/Apps/Terminal)
 - [Windows Terminal](https://github.com/Microsoft/Terminal)
 - [Alacritty](https://github.com/alacritty/alacritty)
@@ -134,12 +117,13 @@ Vim, as against Neovim, inside _tmux_, will also require the following setting b
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 ```
 
+## Contributing
 
+Since it is a work in progress, if you find something buggy or you simply want to help in order to improve the theme, please don't hesitate to submit Pull Requests or write issues!
 
-Screenshots
------------
+## Screenshots
 
-Some examples of syntax highlighting.
+Some examples of syntax highlighting:
 
 ### Ruby
 
@@ -161,7 +145,11 @@ Some examples of syntax highlighting.
 
 ![](misc/screenshots/yml.png)
 
-The font used is [Roboto Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf), Medium, 12px on iTerm2 Terminal.
+### Bash
+
+![](misc/screenshots/bash.png)
+
+The font used is [Roboto Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf), Medium, 12px, on iTerm2 Terminal.
 
 ## Same theme in other apps
 
