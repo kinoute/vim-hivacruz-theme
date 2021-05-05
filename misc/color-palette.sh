@@ -1,0 +1,1 @@
+convert -size 100x200 xc:"#152638" xc:"#B87F62" xc:"#212431" xc:"#27C3CA" xc:"#FBCE33" xc:"#EABF4D" xc:"#FF8E30" xc:"#F8F8F8" xc:"#355274" xc:"#FC4349" xc:"#e86310" xc:"#A982FF" xc:"#2ABD90" xc:"#00ACF6" xc:"#AFE61D" xc:"#41BC8E" xc:"#8AA1E1" +append hivacruz-palette.png
