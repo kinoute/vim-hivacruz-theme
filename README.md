@@ -117,7 +117,8 @@ set -ga terminal-overrides ',xterm-256color:Tc'
 Vim, as against Neovim, inside _tmux_, will also require the following setting be added to `.vimrc`:
 
 ```viml
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 ```
 
 ## Contributing
