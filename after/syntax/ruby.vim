@@ -41,3 +41,7 @@ highlight! link rubyAccess BigRed
 highlight! link rubyMultilineComment Comment
 highlight! link rubyRoute Function
 " highlight! link rubyBlockParameterList KeywordItalic
+
+syntax match rubyBracket "[\[\]]"
+
+highlight! link rubyBracket Normal
