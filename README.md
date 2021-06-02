@@ -6,10 +6,6 @@ _hivacruz_ is a work in progress dark blue GUI color scheme for Vim and Neovim.
 
 > The font used in the screenshot is [Roboto Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf), Medium, 12px, on iTerm2 Terminal.
 
-## Color Palette
-
-![palette](misc/hivacruz-palette.png)
-
 ## Prerequisites
 
 _hivacruz_ is a **GUI-only** Vim color scheme, for now.
