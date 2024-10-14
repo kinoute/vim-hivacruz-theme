@@ -160,6 +160,7 @@ I made similar themes with the same colors for different applications. Here ther
 - iTerm2: https://github.com/kinoute/hivacruz-itermcolors
 - Nova: https://github.com/kinoute/hivacruz-nova-theme
 - Typora Theme: https://github.com/kinoute/typora-hivacruz-theme
+- Zed: https://github.com/kinoute/zed-hivacruz-theme
 
 ## Credits
 
